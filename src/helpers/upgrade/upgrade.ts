@@ -230,5 +230,5 @@ export function useOldAppOptions(
 
   log.debug('Combined options', combinedOptions);
 
-  return combinedOptions;
+  return combinedOptions as RawOptions;
 }

@@ -39,7 +39,7 @@ export async function getOptions(rawOptions: RawOptions): Promise<AppOptions> {
       appCopyright: rawOptions.appCopyright,
       appVersion: rawOptions.appVersion,
       arch: rawOptions.arch ?? inferArch(),
-      asar: rawOptions.asar ?? rawOptions.conceal ?? false,
+      asar: (rawOptions.asar ?? rawOptions.conceal ?? false) as any,
       buildVersion: rawOptions.buildVersion,
       darwinDarkModeSupport: rawOptions.darwinDarkModeSupport ?? false,
       dir: PLACEHOLDER_APP_DIR,
