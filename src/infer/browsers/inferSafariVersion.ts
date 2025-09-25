@@ -26,7 +26,7 @@ export async function getLatestSafariVersion(
 
     const majorVersions = [
       ...rawData.matchAll(
-        /class="mw-headline" id="Safari_[0-9]*">Safari ([0-9]*)</g,
+        /id="Safari_[0-9]*">Safari ([0-9]*)</g,
       ),
     ].map((match) => match[1]);
 
