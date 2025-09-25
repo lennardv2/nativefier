@@ -136,7 +136,6 @@ function getOSRunHelp(platform?: string): string {
   return '';
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function buildNativefierApp(
   rawOptions: RawOptions,
 ): Promise<string> {

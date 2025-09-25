@@ -70,7 +70,7 @@ export function isUrlShellSafe(
   let url: URL;
   try {
     url = new URL(urlToGo.toLowerCase());
-  } catch (err: unknown) {
+  } catch {
     return {
       blocked: true,
       reason: `URL appears malformed. ${SHELL_SAFETY_FEEDBACK_STR}`,

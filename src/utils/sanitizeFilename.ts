@@ -1,5 +1,5 @@
 import * as log from 'loglevel';
-import sanitize = require('sanitize-filename');
+import * as sanitize from 'sanitize-filename';
 
 import { DEFAULT_APP_NAME } from '../constants';
 

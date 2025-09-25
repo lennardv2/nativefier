@@ -24,13 +24,19 @@ export async function getLatestSafariVersion(
     // This would be easier with an HTML parser, but we're not going to include an extra dependency for something that dumb
     const rawData: string = response.data;
 
-    const majorVersions = [
-      ...rawData.matchAll(
-        /id="Safari_[0-9]*">Safari ([0-9]*)</g,
-      ),
-    ].map((match) => match[1]);
+    const majorVersionMatches = [
+      ...rawData.matchAll(/id="Safari_[0-9]*">Safari ([0-9]*)</g),
+    ];
+    const majorVersions = majorVersionMatches.map((match: RegExpMatchArray) => {
+      const version = match[1] as string | undefined;
+      return version ? String(version) : '';
+    });
 
-    const majorVersion = parseInt(majorVersions[majorVersions.length - 1]);
+    const lastMajorVersion = majorVersions[majorVersions.length - 1];
+    if (!lastMajorVersion) {
+      throw new Error('Could not find Safari major version');
+    }
+    const majorVersion = parseInt(lastMajorVersion, 10);
 
     const majorVersionTable = rawData
       .split('>Release history<')[2]
@@ -47,14 +53,22 @@ export async function getLatestSafariVersion(
         ...versionRow.matchAll(/>\s*(([0-9]*\.){2}[0-9])\s*</g),
       ];
       if (versionMatch.length > 0 && !version) {
-        version = versionMatch[0][1];
+        const matchResult = versionMatch[0] as RegExpMatchArray;
+        const matchedVersion = matchResult?.[1] as string | undefined;
+        if (matchedVersion) {
+          version = String(matchedVersion);
+        }
       }
 
       const webkitVersionMatch = [
         ...versionRow.matchAll(/>\s*(([0-9]*\.){3,4}[0-9])\s*</g),
       ];
       if (webkitVersionMatch.length > 0 && !webkitVersion) {
-        webkitVersion = webkitVersionMatch[0][1];
+        const matchResult = webkitVersionMatch[0] as RegExpMatchArray;
+        const matchedVersion = matchResult?.[1] as string | undefined;
+        if (matchedVersion) {
+          webkitVersion = String(matchedVersion);
+        }
       }
       if (version && webkitVersion) {
         break;

@@ -6,12 +6,11 @@ import * as log from 'loglevel';
 
 // package.json is `require`d to let tsc strip the `src` folder by determining
 // baseUrl=src. A static import would prevent that and cause an ugly extra `src` folder in `lib`
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const packageJson: {
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const packageJson = require('../../package.json') as {
   name: string;
   version: string;
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-} = require('../../package.json');
+};
 import {
   DEFAULT_ELECTRON_VERSION,
   PLACEHOLDER_APP_DIR,
@@ -32,14 +31,14 @@ const SEMVER_VERSION_NUMBER_REGEX = /\d+\.\d+\.\d+[-_\w\d.]*/;
 /**
  * Process and validate raw user arguments
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 export async function getOptions(rawOptions: RawOptions): Promise<AppOptions> {
   const options: AppOptions = {
     packager: {
       appCopyright: rawOptions.appCopyright,
       appVersion: rawOptions.appVersion,
       arch: rawOptions.arch ?? inferArch(),
-      asar: (rawOptions.asar ?? rawOptions.conceal ?? false) as any,
+      asar: rawOptions.asar ?? rawOptions.conceal ?? false,
       buildVersion: rawOptions.buildVersion,
       darwinDarkModeSupport: rawOptions.darwinDarkModeSupport ?? false,
       dir: PLACEHOLDER_APP_DIR,
@@ -151,7 +150,9 @@ export async function getOptions(rawOptions: RawOptions): Promise<AppOptions> {
   if (options.packager.electronVersion) {
     const requestedVersion: string = options.packager.electronVersion;
     if (!SEMVER_VERSION_NUMBER_REGEX.exec(requestedVersion)) {
-      throw `Invalid Electron version number "${requestedVersion}". Aborting.`;
+      throw new Error(
+        `Invalid Electron version number "${requestedVersion}". Aborting.`,
+      );
     }
     const requestedMajorVersion = parseInt(requestedVersion.split('.')[0], 10);
     if (requestedMajorVersion < ELECTRON_MAJOR_VERSION) {

@@ -4,7 +4,7 @@
  * would delay the attachment till after the event has been raised.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  injectScripts(); // eslint-disable-line @typescript-eslint/no-use-before-define
+  injectScripts();
 });
 
 import * as fs from 'fs';
@@ -285,7 +285,7 @@ function setDisplayMediaPromise(): void {
           }
         })
         .catch((err) => {
-          reject(err);
+          reject(new Error(String(err)));
         });
     });
   };
@@ -306,6 +306,7 @@ function injectScripts(): void {
       .map((jsFileStat) => path.join('..', 'inject', jsFileStat.name));
     for (const jsFile of jsFiles) {
       log.debug('Injecting JS file', jsFile);
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       require(jsFile);
     }
   } catch (err: unknown) {

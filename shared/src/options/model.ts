@@ -231,7 +231,7 @@ export function outputOptionsToWindowOptions(
     autoHideMenuBar: !options.showMenuBar,
     insecure: options.insecure ?? false,
     tabbingIdentifier: generateTabbingIdentifierIfMissing
-      ? options.tabbingIdentifier ?? randomUUID()
+      ? (options.tabbingIdentifier ?? randomUUID())
       : options.tabbingIdentifier,
     zoom: options.zoom ?? 1.0,
   };

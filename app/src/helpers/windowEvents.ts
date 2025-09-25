@@ -100,7 +100,7 @@ export function onNewWindowHelper(
       return { action: 'deny' };
     }
     return { action: 'allow' };
-  } catch (err: unknown) {
+  } catch {
     return { action: 'deny' };
   }
 }

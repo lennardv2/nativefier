@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 
-import electronPackager = require('electron-packager');
+import * as electronPackager from 'electron-packager';
 import * as log from 'loglevel';
 import yargs from 'yargs';
 
@@ -546,7 +546,7 @@ export function initArgs(argv: string[]): yargs.Argv<RawOptions> {
 
   // We must access argv in order to get yargs to actually process args
   // Do this now to go ahead and get any errors out of the way
-  args.argv as YargsArgvSync<RawOptions>;
+  void (args.argv as YargsArgvSync<RawOptions>);
 
   return args as yargs.Argv<RawOptions>;
 }
@@ -604,7 +604,7 @@ export function parseArgs(args: yargs.Argv<RawOptions>): RawOptions {
     'file-download-options',
   ]) {
     if (parsed[arg] && typeof parsed[arg] === 'string') {
-      parsed[arg] = parseJson(parsed[arg] as string);
+      parsed[arg] = parseJson(parsed[arg]);
       // sets fileDownloadOptions and browserWindowOptions
       // as parsed object as they were still strings in `nativefier.json`
       // because only their snake-cased variants were being parsed above
@@ -674,9 +674,10 @@ if (require.main === module) {
   if (options.verbose) {
     log.setLevel('trace');
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      // Dynamic require for debug module
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       require('debug').enable('electron-packager');
-    } catch (err: unknown) {
+    } catch {
       log.debug(
         'Failed to enable electron-packager debug output. This should not happen,',
         'and suggests their internals changed. Please report an issue.',

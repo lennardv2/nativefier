@@ -2,7 +2,7 @@ import * as path from 'path';
 import { writeFile } from 'fs';
 import { promisify } from 'util';
 
-import gitCloud = require('gitcloud');
+import * as gitCloud from 'gitcloud';
 import pageIcon from 'page-icon';
 
 import {

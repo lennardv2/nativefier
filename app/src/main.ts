@@ -12,6 +12,7 @@ import electron, {
   Event,
 } from 'electron';
 import electronDownload from 'electron-dl';
+import electronSquirrelStartup from 'electron-squirrel-startup';
 
 import { createLoginWindow } from './components/loginWindow';
 import {
@@ -36,7 +37,7 @@ import {
 import { OutputOptions } from '../../shared/src/options/model';
 
 // Entrypoint for Squirrel, a windows update framework. See https://github.com/nativefier/nativefier/pull/744
-if (require('electron-squirrel-startup')) {
+if (electronSquirrelStartup) {
   app.exit();
 }
 
@@ -202,7 +203,12 @@ const setDockBadge = isOSX()
   ? (count?: number | string, bounce = false): void => {
       if (count !== undefined && app.dock) {
         app.dock.setBadge(count.toString());
-        if (bounce && typeof count === 'number' && count > currentBadgeCount && app.dock)
+        if (
+          bounce &&
+          typeof count === 'number' &&
+          count > currentBadgeCount &&
+          app.dock
+        )
           app.dock.bounce();
         currentBadgeCount = typeof count === 'number' ? count : 0;
       }

@@ -1,4 +1,3 @@
-import { once } from 'events';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -61,7 +60,6 @@ describe('Application launch', () => {
       Promise.all(consoleMessage.args().map((x) => x.jsonValue()))
         .then((args) => {
           if (consoleMessage.type() in consoleMethods) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             consoleMethods[consoleMessage.type()]('window.console', args);
           } else {
             log.log('window.console', args);
@@ -188,7 +186,7 @@ describe('Application launch', () => {
     const dialogPromise = new Promise<Dialog>((resolve) => {
       mainWindow.once('dialog', resolve);
     });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const dialog: Dialog = await dialogPromise;
     await dialog.dismiss();
     expect(dialog.message()).toBe(alertMsg);
@@ -394,7 +392,7 @@ describe('Application launch', () => {
     try {
       await submitButton?.click();
       await mainWindow.waitForEvent('load');
-    } catch (error) {
+    } catch {
       // The login window might close automatically or the app might handle auth differently
       // Check if we're already authenticated
       await new Promise((resolve) => setTimeout(resolve, 2000));

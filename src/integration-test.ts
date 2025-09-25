@@ -30,7 +30,9 @@ async function checkApp(
       `npm-${inputOptions.platform as string}-${arch}`,
       `APP-${inputOptions.platform as string}-${arch}`,
     ];
-    const matches = expectedNames.some(name => baseName === name || baseName.includes(name));
+    const matches = expectedNames.some(
+      (name) => baseName === name || baseName.includes(name),
+    );
     expect(matches).toBeTruthy();
   }
 
@@ -39,13 +41,17 @@ async function checkApp(
   if (inputOptions.platform === 'darwin') {
     // Check what app bundle actually exists in the directory
     const files = fs.readdirSync(appRoot);
-    const appBundle = files.find(f => f.endsWith('.app'));
+    const appBundle = files.find((f) => f.endsWith('.app'));
     if (appBundle) {
       relativeResourcesDir = path.join(appBundle, 'Contents', 'Resources');
     } else {
       // Fallback to guessing based on path
       const appName = path.basename(appRoot).startsWith('npm') ? 'npm' : 'APP';
-      relativeResourcesDir = path.join(`${appName}.app`, 'Contents', 'Resources');
+      relativeResourcesDir = path.join(
+        `${appName}.app`,
+        'Contents',
+        'Resources',
+      );
     }
   }
 
@@ -66,8 +72,8 @@ async function checkApp(
     inputOptions.platform === 'darwin'
       ? path.join('..', 'electron.icns')
       : inputOptions.platform === 'linux'
-      ? 'icon.png'
-      : 'icon.ico';
+        ? 'icon.png'
+        : 'icon.ico';
   const iconPath = path.join(appPath, iconFile);
   // Only test icon if it exists (it may not if icon inference failed)
   if (fs.existsSync(iconPath)) {

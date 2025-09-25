@@ -186,9 +186,11 @@ export async function prepareElectronApp(
   try {
     await fs.copy(src, dest);
   } catch (err: unknown) {
-    throw `Error copying electron app from ${src} to temp dir ${dest}. Error: ${
-      (err as Error).message
-    }`;
+    throw new Error(
+      `Error copying electron app from ${src} to temp dir ${dest}. Error: ${
+        (err as Error).message
+      }`,
+    );
   }
 
   const appJsonPath = path.join(dest, '/nativefier.json');

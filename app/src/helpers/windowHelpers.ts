@@ -37,7 +37,7 @@ export function showNavigationBlockedMessage(
         })
         .then((result) => resolve(result))
         .catch((err) => {
-          reject(err);
+          reject(new Error(String(err)));
         });
     });
   });
@@ -153,7 +153,7 @@ export function getDefaultWindowOptions(
     autoHideMenuBar: options.autoHideMenuBar,
     fullscreenable: true,
     tabbingIdentifier: nativeTabsSupported()
-      ? options.tabbingIdentifier ?? randomUUID()
+      ? (options.tabbingIdentifier ?? randomUUID())
       : undefined,
     title: options.name,
     webPreferences: {
