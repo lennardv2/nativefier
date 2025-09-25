@@ -1,4 +1,5 @@
-This fork fixes tests, updates deps to electron 38.1.2 and updates packages. Official Nativefier is unmaintained (https://github.com/nativefier/nativefier/issues/1577)
+> [!NOTE]
+> This fork fixes tests, updates deps to electron 38.1.2 and updates packages. Official Nativefier is unmaintained (https://github.com/nativefier/nativefier/issues/1577)
 
 # Nativefier
 
