@@ -35,7 +35,7 @@ export function onNewWindow(
     options,
     setupWindow,
     details,
-    (nativeTabsSupported() && !options.disableNativeTabs) ? undefined : parent,
+    nativeTabsSupported() && !options.disableNativeTabs ? undefined : parent,
   );
 }
 
@@ -87,7 +87,9 @@ export function onNewWindowHelper(
       createAboutBlankWindow(
         options,
         setupWindow,
-        (nativeTabsSupported() && !options.disableNativeTabs) ? undefined : parent,
+        nativeTabsSupported() && !options.disableNativeTabs
+          ? undefined
+          : parent,
       );
       return { action: 'deny' };
     } else if (nativeTabsSupported() && !options.disableNativeTabs) {

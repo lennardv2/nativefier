@@ -37,7 +37,10 @@ export function initContextMenu(
           label: 'Open Link in New Window',
           click: () =>
             createNewWindow(
-              outputOptionsToWindowOptions(options, nativeTabsSupported() && !options.disableNativeTabs),
+              outputOptionsToWindowOptions(
+                options,
+                nativeTabsSupported() && !options.disableNativeTabs,
+              ),
               setupNativefierWindow,
               params.linkURL,
               // window,

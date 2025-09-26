@@ -74,7 +74,7 @@ export function createAboutBlankWindow(
     { ...options, show: false },
     setupWindow,
     'about:blank',
-    (nativeTabsSupported() && !options.disableNativeTabs) ? undefined : parent,
+    nativeTabsSupported() && !options.disableNativeTabs ? undefined : parent,
   );
   window.webContents.once('did-stop-loading', () => {
     if (window.webContents.getURL() === 'about:blank') {
@@ -152,9 +152,10 @@ export function getDefaultWindowOptions(
   const defaultOptions: BrowserWindowConstructorOptions = {
     autoHideMenuBar: options.autoHideMenuBar,
     fullscreenable: true,
-    tabbingIdentifier: (nativeTabsSupported() && !options.disableNativeTabs)
-      ? (options.tabbingIdentifier ?? randomUUID())
-      : undefined,
+    tabbingIdentifier:
+      nativeTabsSupported() && !options.disableNativeTabs
+        ? (options.tabbingIdentifier ?? randomUUID())
+        : undefined,
     title: options.name,
     webPreferences: {
       javascript: true,

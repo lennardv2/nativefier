@@ -85,7 +85,10 @@ export async function createMainWindow(
     show: options.tray !== 'start-in-tray' && process.platform !== 'win32',
     backgroundColor: options.backgroundColor,
     ...getDefaultWindowOptions(
-      outputOptionsToWindowOptions(options, nativeTabsSupported() && !options.disableNativeTabs),
+      outputOptionsToWindowOptions(
+        options,
+        nativeTabsSupported() && !options.disableNativeTabs,
+      ),
     ),
   });
 
