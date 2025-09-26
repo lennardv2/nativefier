@@ -188,6 +188,12 @@ export function initArgs(argv: string[]): yargs.Argv<RawOptions> {
       description: 'disable developer tools (Ctrl+Shift+I / F12)',
       type: 'boolean',
     })
+    .option('disable-internal-login-check', {
+      default: false,
+      description:
+        'disable automatic detection of login pages (allows auth domains to open internally)',
+      type: 'boolean',
+    })
     .option('full-screen', {
       default: false,
       description: 'always start the app full screen',
@@ -276,6 +282,7 @@ export function initArgs(argv: string[]): yargs.Argv<RawOptions> {
         'browserwindow-options',
         'disable-context-menu',
         'disable-dev-tools',
+        'disable-internal-login-check',
         'full-screen',
         'height',
         'hide-window-frame',

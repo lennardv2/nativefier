@@ -35,6 +35,7 @@ export interface AppOptions {
     crashReporter?: string;
     disableContextMenu: boolean;
     disableDevTools: boolean;
+    disableInternalLoginCheck: boolean;
     disableGpu: boolean;
     disableNativeTabs: boolean;
     disableOldBuildWarning: boolean;
@@ -152,6 +153,7 @@ export type RawOptions = {
   darwinDarkModeSupport?: boolean;
   disableContextMenu?: boolean;
   disableDevTools?: boolean;
+  disableInternalLoginCheck?: boolean;
   disableGpu?: boolean;
   disableNativeTabs?: boolean;
   disableOldBuildWarning?: boolean;
@@ -213,6 +215,7 @@ export type WindowOptions = {
   autoHideMenuBar: boolean;
   blockExternalUrls: boolean;
   browserwindowOptions?: BrowserWindowOptions;
+  disableInternalLoginCheck: boolean;
   disableNativeTabs: boolean;
   insecure: boolean;
   internalUrls?: string | RegExp;
@@ -233,6 +236,7 @@ export function outputOptionsToWindowOptions(
   return {
     ...options,
     autoHideMenuBar: !options.showMenuBar,
+    disableInternalLoginCheck: options.disableInternalLoginCheck ?? false,
     disableNativeTabs: options.disableNativeTabs ?? false,
     insecure: options.insecure ?? false,
     tabbingIdentifier: generateTabbingIdentifierIfMissing

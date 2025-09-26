@@ -213,13 +213,14 @@ export function linkIsInternal(
   newUrl: string,
   internalUrlRegex: string | RegExp | undefined,
   isStrictInternalUrlsEnabled: boolean | undefined,
+  disableInternalLoginCheck: boolean | undefined = false,
 ): boolean {
   log.debug('linkIsInternal', { currentUrl, newUrl, internalUrlRegex });
   if (newUrl.split('#')[0] === 'about:blank') {
     return true;
   }
 
-  if (isInternalLoginPage(newUrl)) {
+  if (!disableInternalLoginCheck && isInternalLoginPage(newUrl)) {
     return true;
   }
 

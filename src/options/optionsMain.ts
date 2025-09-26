@@ -80,6 +80,7 @@ export async function getOptions(rawOptions: RawOptions): Promise<AppOptions> {
       crashReporter: rawOptions.crashReporter,
       disableContextMenu: rawOptions.disableContextMenu ?? false,
       disableDevTools: rawOptions.disableDevTools ?? false,
+      disableInternalLoginCheck: rawOptions.disableInternalLoginCheck ?? false,
       disableGpu: rawOptions.disableGpu ?? false,
       disableNativeTabs: rawOptions.disableNativeTabs ?? false,
       diskCacheSize: rawOptions.diskCacheSize,

@@ -20,6 +20,7 @@ describe('fields', () => {
         crashReporter: undefined,
         disableContextMenu: false,
         disableDevTools: false,
+        disableInternalLoginCheck: false,
         disableGpu: false,
         disableNativeTabs: false,
         disableOldBuildWarning: false,

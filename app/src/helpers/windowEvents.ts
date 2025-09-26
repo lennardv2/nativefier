@@ -56,6 +56,7 @@ export function onNewWindowHelper(
         details.url,
         options.internalUrls,
         options.strictInternalUrls,
+        options.disableInternalLoginCheck,
       )
     ) {
       if (options.blockExternalUrls) {
@@ -119,6 +120,7 @@ export function onWillNavigate(
       urlToGo,
       options.internalUrls,
       options.strictInternalUrls,
+      options.disableInternalLoginCheck,
     )
   ) {
     event.preventDefault();
