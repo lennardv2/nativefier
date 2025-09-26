@@ -36,6 +36,7 @@ export interface AppOptions {
     disableContextMenu: boolean;
     disableDevTools: boolean;
     disableGpu: boolean;
+    disableNativeTabs: boolean;
     disableOldBuildWarning: boolean;
     diskCacheSize?: number;
     electronVersionUsed?: string;
@@ -111,6 +112,7 @@ export type OutputOptions = NativefierOptions & {
   buildDate: number;
   companyName?: string;
   disableDevTools: boolean;
+  disableNativeTabs: boolean;
   fileDownloadOptions?: Record<string, unknown>;
   internalUrls: string | RegExp | undefined;
   isUpgrade: boolean;
@@ -151,6 +153,7 @@ export type RawOptions = {
   disableContextMenu?: boolean;
   disableDevTools?: boolean;
   disableGpu?: boolean;
+  disableNativeTabs?: boolean;
   disableOldBuildWarning?: boolean;
   disableOldBuildWarningYesiknowitisinsecure?: boolean;
   diskCacheSize?: number;
@@ -210,6 +213,7 @@ export type WindowOptions = {
   autoHideMenuBar: boolean;
   blockExternalUrls: boolean;
   browserwindowOptions?: BrowserWindowOptions;
+  disableNativeTabs: boolean;
   insecure: boolean;
   internalUrls?: string | RegExp;
   strictInternalUrls?: boolean;
@@ -229,6 +233,7 @@ export function outputOptionsToWindowOptions(
   return {
     ...options,
     autoHideMenuBar: !options.showMenuBar,
+    disableNativeTabs: options.disableNativeTabs ?? false,
     insecure: options.insecure ?? false,
     tabbingIdentifier: generateTabbingIdentifierIfMissing
       ? (options.tabbingIdentifier ?? randomUUID())

@@ -85,7 +85,7 @@ export async function createMainWindow(
     show: options.tray !== 'start-in-tray' && process.platform !== 'win32',
     backgroundColor: options.backgroundColor,
     ...getDefaultWindowOptions(
-      outputOptionsToWindowOptions(options, nativeTabsSupported()),
+      outputOptionsToWindowOptions(options, nativeTabsSupported() && !options.disableNativeTabs),
     ),
   });
 
@@ -112,7 +112,7 @@ export async function createMainWindow(
 
   const windowOptions = outputOptionsToWindowOptions(
     options,
-    nativeTabsSupported(),
+    nativeTabsSupported() && !options.disableNativeTabs,
   );
   createMenu(options, mainWindow);
   createContextMenu(options, mainWindow);
@@ -185,7 +185,7 @@ function setupCloseEvent(options: OutputOptions, window: BrowserWindow): void {
   window.on('close', (event: Event) => {
     log.debug('mainWindow.close', event);
     if (window.isFullScreen()) {
-      if (nativeTabsSupported()) {
+      if (nativeTabsSupported() && !options.disableNativeTabs) {
         window.moveTabToNewWindow();
       }
       window.setFullScreen(false);

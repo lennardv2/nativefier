@@ -21,6 +21,7 @@ const mockedAsyncConfig: AppOptions = {
     disableContextMenu: false,
     disableDevTools: false,
     disableGpu: false,
+    disableNativeTabs: false,
     disableOldBuildWarning: false,
     diskCacheSize: undefined,
     enableEs3Apis: false,

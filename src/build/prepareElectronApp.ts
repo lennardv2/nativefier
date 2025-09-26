@@ -42,6 +42,7 @@ function pickElectronAppArgs(options: AppOptions): OutputOptions {
     disableContextMenu: options.nativefier.disableContextMenu,
     disableDevTools: options.nativefier.disableDevTools,
     disableGpu: options.nativefier.disableGpu,
+    disableNativeTabs: options.nativefier.disableNativeTabs,
     disableOldBuildWarning: options.nativefier.disableOldBuildWarning,
     diskCacheSize: options.nativefier.diskCacheSize,
     download: options.packager.download,

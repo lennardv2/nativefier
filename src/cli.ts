@@ -368,6 +368,11 @@ export function initArgs(argv: string[]): yargs.Argv<RawOptions> {
       description: 'disable domain-based matching on internal URLs',
       type: 'boolean',
     })
+    .option('disable-native-tabs', {
+      default: false,
+      description: 'force links to open in new windows instead of tabs (macOS)',
+      type: 'boolean',
+    })
     .option('proxy-rules', {
       description:
         'proxy rules; see https://www.electronjs.org/docs/api/session#sessetproxyconfig',
@@ -378,6 +383,7 @@ export function initArgs(argv: string[]): yargs.Argv<RawOptions> {
         'block-external-urls',
         'internal-urls',
         'strict-internal-urls',
+        'disable-native-tabs',
         'proxy-rules',
       ],
       decorateYargOptionGroup('URL Handling Options'),
